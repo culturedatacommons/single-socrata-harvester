@@ -2,6 +2,8 @@ name: Run Harvester
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *'
 
 jobs:
   run-harvester:
@@ -27,4 +29,5 @@ jobs:
           PORTALJS_CLOUD_API_URL: ${{ secrets.PORTALJS_CLOUD_API_URL }}
           PORTALJS_CLOUD_API_KEY: ${{ secrets.PORTALJS_CLOUD_API_KEY }}
           PORTALJS_CLOUD_MAIN_ORG: ${{ secrets.PORTALJS_CLOUD_MAIN_ORG }}
+          SOCRATA_DATASET_ID: ${{ secrets.SOCRATA_DATASET_ID }}
         run: npx ts-node index.ts

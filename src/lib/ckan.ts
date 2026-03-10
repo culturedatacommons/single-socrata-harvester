@@ -105,6 +105,19 @@ export async function getAllDatasets<DatasetSchemaT = any>({
   return datasets;
 }
 
+export async function getDataset<DatasetSchemaT = any>({
+  ckanUrl,
+  ckanApiToken,
+  id,
+}: CkanActionConfig & { id: string }) {
+  const res = await CkanRequest.get<CkanResponse<DatasetSchemaT>>(
+    `package_show?id=${encodeURIComponent(id)}`,
+    { ckanUrl, apiKey: ckanApiToken }
+  );
+  if (!res.success) throw new Error(`Dataset not found: ${id}`);
+  return res.result;
+}
+
 export async function createDataset<DatasetSchemaT = any>({
   ckanUrl,
   ckanApiToken,

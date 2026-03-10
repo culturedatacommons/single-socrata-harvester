@@ -1,3 +1,27 @@
+In order to mirror the DCLA Programs Funding dataset from Socrata Open Data, the existing harvesterjs template was exteded with a new `SocrataSingleDatasetHarvester` harvester class that allows harvesting a single dataset by its 4x4 ID instead of the entire catalog:
+
+- [Socrata Single Dataset](./src/harvesters/socrata-single.ts)
+
+To run, set up the modified `.env` as follows: 
+```env
+HARVESTER_NAME=SocrataSingleDatasetHarvester
+SOURCE_API_URL=https://data.cityofnewyork.us
+SOURCE_API_KEY=your-app-token   # optional but recommended to avoid rate limits
+SOCRATA_DATASET_ID=ijzp-q8t2   # the 4x4 ID from the dataset URL
+```
+
+Then run:
+
+```sh
+npm run start
+# or dry-run without writing to PortalJS Cloud:
+DRY_RUN=true npm run start
+```
+
+Additional customization was added to the mapping logic to preserve existing resource descriptions in PortalJS Cloud when they exist, while still updating the resource URLs and formats from the source dataset. This way, if you want to add custom descriptions  resources in PortalJS Cloud, they won't be overwritten on subsequent harvests. This is helpful as not much contextual information about the resources is provided from Socrata.
+
+Lastly, `config.ts` was updated to properly parse the `DRY_RUN` environment variable as a boolean.
+
 # PortalJS Harvesters
 
 <div align="center">

@@ -17,7 +17,7 @@ const EnvSchema = z.object({
   RATE_LIMIT_RPS: z.coerce.number().default(2),
   RETRY_MAX_ATTEMPTS: z.coerce.number().default(2),
   RETRY_BASE_MS: z.coerce.number().default(500),
-  DRY_RUN: z.coerce.boolean().default(false),
+  DRY_RUN: z.string().transform(v => v === 'true').default(false),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
