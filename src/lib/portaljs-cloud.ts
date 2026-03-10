@@ -18,6 +18,14 @@ export async function getDatasetList() {
   ).map((ds) => ds.name);
 }
 
+export async function getDataset(name: string): Promise<PortalJsCloudDataset | null> {
+  try {
+    return await Ckan.getDataset<PortalJsCloudDataset>({ ...portalConfig, id: name });
+  } catch {
+    return null;
+  }
+}
+
 export async function createDataset(dataset: PortalJsCloudDataset) {
   return await Ckan.createDataset<PortalJsCloudDataset>({
     ...portalConfig,
