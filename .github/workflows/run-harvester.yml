@@ -3,7 +3,7 @@ name: Run Harvester
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 1 * *' # Runs at 00:00 on day one of the month
 
 jobs:
   run-harvester:
