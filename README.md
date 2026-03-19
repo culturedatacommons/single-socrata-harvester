@@ -4,7 +4,7 @@ In order to mirror the a single dataset from NYC Open Data (or any other Socrata
 
 - [Socrata Single Dataset](./src/harvesters/socrata-single.ts)
 
-To run, set up the modified `.env` as follows: 
+To run locally, set up the modified `.env` as follows: 
 ```env
 HARVESTER_NAME=SocrataSingleDatasetHarvester
 SOURCE_API_URL=https://data.cityofnewyork.us
@@ -30,6 +30,15 @@ on:
   schedule:
     - cron: '0 0 1 * *' # Runs at 00:00 on day one of the month
 ```
+Then, make sure to set up the appropriate environment variables in the Github Actions secrets for the workflow to run properly:
+
+* `HARVESTER_NAME` - Set to `SocrataSingleDatasetHarvester`
+* `SOURCE_API_URL` - Set to the base URL of the Socrata data source (e.g., `https://data.cityofnewyork.us`)
+* `SOURCE_API_KEY` - (Optional but recommended) Set to your Socrata app token to avoid rate limits.
+* `SOCRATA_DATASET_ID` - Set to the 4x4 ID of the dataset you want to harvest (e.g., `y6fv-k6p7` for the DCLA Programs Funding dataset).
+* `PORTALJS_CLOUD_API_URL` - Set to `https://api.cloud.portaljs.com`.
+* `PORTALJS_CLOUD_MAIN_ORG` - Set to `cultureapolicy`.
+* `PORTALJS_CLOUD_API_KEY` - Set to a PortalJS Cloud API key with permissions to write to the `cultureapolicy` organization.
 
 Lastly, `config.ts` was updated to properly parse the `DRY_RUN` environment variable as a boolean.
 
