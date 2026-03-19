@@ -1,6 +1,6 @@
-# Harvester – DCLA Programs Funding
+# Modified Harvester: Single Socrata Dataset
 
-In order to mirror the [DCLA Programs Funding](https://data.cityofnewyork.us/Recreation/DCLA-Programs-Funding/y6fv-k6p7/about_data) dataset from NYC Open Data, the existing [harvesterjs](https://github.com/datopian/harvesterjs) template was exteded with a new `SocrataSingleDatasetHarvester` harvester class that allows harvesting a single dataset by its 4x4 ID instead of the entire catalog:
+In order to mirror the a single dataset from NYC Open Data (or any other Socrata-based data source), the existing [harvesterjs](https://github.com/datopian/harvesterjs) template was exteded with a new `SocrataSingleDatasetHarvester` harvester class that allows harvesting a single dataset by its 4x4 ID instead of the entire catalog:
 
 - [Socrata Single Dataset](./src/harvesters/socrata-single.ts)
 
@@ -22,7 +22,14 @@ DRY_RUN=true npm run start
 
 Additional customization was added to the mapping logic to preserve existing resource descriptions in PortalJS Cloud when they exist while still updating the resource URLs and formats from the source dataset. This way, if you want to add custom descriptions  resources in PortalJS Cloud, they won't be overwritten on subsequent harvests. This is helpful as not much contextual information about the resources is provided from Socrata.
 
-The Github Actions workflow has been updated to run on midnight on the first day of the month. Note however NYC Open Data lists the update frequency for this dataset as once per year, last updated in February 2026.
+The Github Actions workflow has been updated to run on a schedule using the Github workflow YAML. The default schedule runs the harvester on midnight on the first day of the month. Adjust accordingly to match the update frequency of the source dataset:
+
+```yaml
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1 * *' # Runs at 00:00 on day one of the month
+```
 
 Lastly, `config.ts` was updated to properly parse the `DRY_RUN` environment variable as a boolean.
 
