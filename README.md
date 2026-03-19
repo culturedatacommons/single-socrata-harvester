@@ -1,6 +1,6 @@
 # Modified Harvester: Single Socrata Dataset
 
-In order to mirror the a single dataset from NYC Open Data (or any other Socrata-based data source), the existing [harvesterjs](https://github.com/datopian/harvesterjs) template was exteded with a new `SocrataSingleDatasetHarvester` harvester class that allows harvesting a single dataset by its 4x4 ID instead of the entire catalog:
+In order to mirror a single dataset from NYC Open Data (or any other Socrata-based data source), the existing [harvesterjs](https://github.com/datopian/harvesterjs) template was exteded with a new `SocrataSingleDatasetHarvester` harvester class that allows harvesting a single dataset by its 4x4 ID instead of the entire catalog:
 
 - [Socrata Single Dataset](./src/harvesters/socrata-single.ts)
 
