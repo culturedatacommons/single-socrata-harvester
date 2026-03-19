@@ -22,13 +22,13 @@ DRY_RUN=true npm run start
 
 Additional customization was added to the mapping logic to preserve existing resource descriptions in PortalJS Cloud when they exist while still updating the resource URLs and formats from the source dataset. This way, if you want to add custom descriptions  resources in PortalJS Cloud, they won't be overwritten on subsequent harvests. This is helpful as not much contextual information about the resources is provided from Socrata.
 
-The Github Actions workflow has been updated to run on a schedule using the Github workflow YAML. The default schedule runs the harvester on midnight on the first day of the month. Adjust accordingly to match the update frequency of the source dataset:
+The Github Actions workflow has been updated to run on a schedule using the Github workflow YAML. The default schedule runs the harvester on midnight on Sundays. Adjust accordingly to match the update frequency of the source dataset:
 
 ```yaml
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *' # Runs at 00:00 on day one of the month
+    - cron: '0 0 * * 0' # Runs at 00:00 on Sundays
 ```
 Then, make sure to set up the appropriate environment variables in the Github Actions secrets for the workflow to run properly:
 
